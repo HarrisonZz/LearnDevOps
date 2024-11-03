@@ -1,3 +1,4 @@
 FROM nginx:1.26.2-alpine
 
-ADD index.html /usr/share/nginx/html/index.html
+COPY index.html /usr/share/nginx/html/index.html
+ADD clean_work.tar.gz ./src/
