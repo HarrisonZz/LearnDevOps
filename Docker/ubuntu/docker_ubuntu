@@ -1,0 +1,32 @@
+#!/bin/bash
+
+usage() {
+    echo "用法: $0 [build|run|remove]"
+    echo "命令:"
+    echo "  build   - 構建 ubuntu 映像"
+    echo "  run     - 運行 ubuntu 容器"
+    echo "  remove  - 停止並刪除容器"
+    exit 1
+}
+
+if [ $# -eq 0 ]; then
+    usage
+fi
+
+case "$1" in
+    build)
+	docker build -t ubuntu-22.04 .
+	docker image prune -f
+    unless-stopped    ;;
+    run)
+	docker run -itd --name myubuntu ubuntu-22.04
+	docker exec -it myubuntu bash
+        ;;
+    remove)
+    	docker rm -f myubuntu
+        ;;
+    *)
+        echo "無效的命令: $1"
+        usage
+        ;;
+esac
