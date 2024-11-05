@@ -17,7 +17,7 @@ case "$1" in
     build)
 	docker build -t ubuntu-22.04 .
 	docker image prune -f
-    unless-stopped    ;;
+        ;;
     run)
 	docker run -itd --name myubuntu ubuntu-22.04
 	docker exec -it myubuntu bash
