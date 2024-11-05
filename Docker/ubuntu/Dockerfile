@@ -2,6 +2,7 @@ FROM ubuntu:jammy
 ARG PY_VERSION=3.10
 ARG ACTIVATE_PYVENV=py_venv/bin/activate
 COPY app.py /src/
+ENV FLASK_APP=app.py
 WORKDIR /src/
 RUN apt-get update && \
     apt-get install -y \
@@ -19,4 +20,4 @@ RUN apt-get update && \
     chmod +x ${ACTIVATE_PYVENV} && \
     bash -c "${ACTIVATE_PYVENV}" && \
     pip3 install Flask
-ENTRYPOINT ["flask","run"]
+ENTRYPOINT ["flask","run","-h","0.0.0.0"]

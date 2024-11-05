@@ -19,7 +19,7 @@ case "$1" in
 	docker image prune -f
         ;;
     run)
-	docker run -itd --name myubuntu ubuntu-22.04
+	docker run -d -p 5000:5000 --name myubuntu ubuntu-22.04
 	docker exec -it myubuntu bash
         ;;
     remove)
