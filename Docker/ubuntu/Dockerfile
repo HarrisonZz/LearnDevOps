@@ -1,4 +1,11 @@
+FROM golang:1.21 AS builder
+
 FROM ubuntu:jammy
+COPY --from=builder /usr/local/go /usr/local/go
+ENV GOPATH /go
+ENV PATH $PATH:/usr/local/go/bin:$GOPATH/bin
+RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" "$GOPATH/pkg"
+
 ARG PY_VERSION=3.10
 ARG ACTIVATE_PYVENV=py_venv/bin/activate
 ENV FLASK_APP=app.py
