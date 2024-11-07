@@ -1,0 +1,32 @@
+#!/bin/bash
+
+usage() {
+    echo "用法: $0 [build|run|remove]"
+    echo "命令:"
+    echo "  build   - 構建 mysql 映像"
+    echo "  run     - 運行 mysql 容器"
+    echo "  remove  - 停止並刪除容器"
+    exit 1
+}
+
+if [ $# -eq 0 ]; then
+    usage
+fi
+
+case "$1" in
+    build)
+	docker build -t mysql .
+	docker image prune -f
+        ;;
+    run)
+	docker run -d -v mysql_data:/var/lib/mysql --name my_mysql mysql
+	docker exec -it my_mysql sh
+        ;;
+    remove)
+    	docker rm -f my_mysql
+        ;;
+    *)
+        echo "無效的命令: $1"
+        usage
+        ;;
+esac

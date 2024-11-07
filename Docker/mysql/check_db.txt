@@ -1,0 +1,1 @@
+drwxr-x--- 2 mysql mysql 4096 Nov  7 17:47 /var/lib/mysql/demo
