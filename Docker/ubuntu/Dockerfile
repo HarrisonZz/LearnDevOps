@@ -25,6 +25,11 @@ RUN apt-get update && \
     chmod +x ${ACTIVATE_PYVENV} && \
     bash -c "${ACTIVATE_PYVENV}" && \
     pip3 install Flask
+
 COPY app.py /src/
+RUN groupadd -r flask && useradd -r -g flask flask && \
+    chown -R flask:flask /src
+USER flask
+
 WORKDIR /src/
 ENTRYPOINT ["flask","run","-h","0.0.0.0"]
