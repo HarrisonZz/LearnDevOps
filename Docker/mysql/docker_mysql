@@ -20,11 +20,13 @@ case "$1" in
         ;;
     run)
 	docker run -d -v mysql_data:/var/lib/mysql --name my_mysql mysql
-	docker exec -it my_mysql sh
         ;;
     remove)
     	docker rm -f my_mysql
         ;;
+    exec)
+	docker exec -it my_mysql sh
+	;;
     *)
         echo "無效的命令: $1"
         usage
